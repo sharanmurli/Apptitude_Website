@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JQuery Ajax</title>
+	</head>
+	<body>
+	
+		<label>
+			Name: <input type="text" id="name">
+		</label>
+			<input type="submit" id="fetch">
+		
+		<dl>
+			<dt>Age: </dt>
+			<dd class="age">-</dd>
+			
+			<dt>Location: </dt>
+			<dd class="location">-</dd>
+			
+			<dt>Job: </dt>
+			<dd class="job">-</dd>
+		</dl>
+		
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>
+		$('#fetch').on('click', function() {
+			var name = $('#name').val();
+			$.ajax({
+				url: 'my.php',
+				datatype: 'json',
+				type: 'get',
+				data: {name: name},
+				cache: false,
+				success: function(data){
+					if(data.exists){
+						for(var label in data.information){
+							$('.' + label).text(data.information[label]);
+							}
+						} else{
+							alert('Not found.');
+						}
+					}
+				});
+			});
+	</script>	
+	</body>
+</html>
